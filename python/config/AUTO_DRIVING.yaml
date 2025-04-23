@@ -1,0 +1,103 @@
+
+# ================== Camera(s) Interface
+cam_port: '../assets/video10.avi'
+cam_fourcc: 'YUY2'
+# image, stream, video
+load_mode: 'video'
+# stream mode: 0: async no-ack, 1: sync 1 ack, 2: sync 2 ack
+stream_mode: 0
+mcam_mode: 'stereo_attached'
+img_size: [640, 480]
+fps: 15
+
+distortion_type: 'rad-tan'
+intrinsics: [584.3614, 588.77856, 319.24884, 227.20047]
+distortion: [0.19117302, -0.8956389, -0.009646454, 0.0027058297, 1.3656371]
+
+
+# ================= Lane Finder
+lim_img_sz: 640
+# start_row, end_row, start_col, end_col
+crop_size: [50, 480, 0, 0]
+filter_ksize: 5
+# thresholds: [thresh_x:2, thresh_y:2, thresh_mag:2, thresh_dir:2]
+grad_thresholds: [20, 200, 30, 210, 5, 150, 0.5, 1.4]
+# thresholds: [th_h:2, th_l:2, th_s:2]
+hsl_thresholds: [0, 0, 10, 100, 150, 255]
+perspective_transform: [12.2301, 7.9765, -3850.3788, -0.3601, 33.2963, -7174.5336, -0.0001, 0.0469, 1.0000]
+perspective_trans_inv: [0.9009, -0.4594, 173.0738, 0.0028, 0.0288, 217.3470, -0.0000, -0.0014, 1.0000]
+warped_size: [340, 360]
+unwarped_size: [500, 600]
+#perspective_transform: [-1.34938693e-01, -5.95979223e-01,  3.36231580e+02,
+#         1.88247552e-16, -1.84792535e+00,  8.86039036e+02,
+#         -7.88534139e-20, -2.38391685e-03,  1.00000000e+00]
+pixels_per_meter: [46.38130211532031, 32.91999811045417]
+orig_points: [374.0426 ,  479.47772,
+             904.0426 ,  479.47772,
+             1811.766  ,  685.,
+             -533.6808 ,  685.]
+tracking_mode: "contours3"
+# contours3 steering scale
+steering_scale: 3.0
+# state buffer size
+state_buffer_size: 4
+
+
+# ================= Object Detection
+# path to the ML model relative to root ds
+ds_root: '/home/ad/data'
+model_path: 'dl-models/od-53000.tflite'
+# labels or labels_path describe labels
+#labels: ['person']
+labels_path: 'dl-models/auto_driving_classes.txt'
+min_conf: 0.5
+min_score: 0.5
+min_nms: 0.45
+ml_input_sz: [640, 640]
+
+apriltag_family: 'tag36h11'
+apriltag_scale: 0.05 # distance between tag corners in real world
+
+
+# ================= Auto Driving
+# lane detection modes: classic, cmd, vpr, ml_seg
+lane_dt_mode: 'vpr'
+# paths wrt ds_root
+path_cmd: 'cmd/cmd0.txt'
+path_id_cmd: 'dbow/cmd_table.txt'
+path_dbow_db: 'dbow/small_db.yml.gz'
+path_id_cmd_urban: 'dbow/cmd_table_urban.txt'
+path_dbow_db_urban: 'dbow/small_db_urban.yml.gz'
+
+path_dbow_voc: 'dbow/small_voc.yml.gz'
+path_id_ts_map: 'dbow/dbow2-images.txt'
+vpr_n_matches: 5
+
+path_od_lims: 'dl-models/od_lims.txt'
+
+
+# ================= Serial Interface
+#serial_port: '/dev/ttyACM0'
+serial_port: '/dev/ttyUSB0'
+serial_bd: 19200
+# serial_timeout: 0.01
+serial_send_delay: 0.01
+
+
+# ================= Wireless Comm
+#wl_host: '192.168.79.45'
+wl_host: '127.0.1.1'
+wl_port: 29456
+wl_port_data: 8080
+
+
+# ================= Debugging
+# modes: none, vis, wireless
+debug_mode: 'vis'
+video_path: 'assets/video.avi'
+
+
+# ================= Ultrasonic
+use_ultrasonic: 1
+ultrasonic_delay: 0.01
+
